@@ -1,14 +1,20 @@
+import { login } from "./service";
+
 export function LoginPage() {
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
-        const username = formData.get('email') as string;
+        const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        console.log(username + password)
-        
+        console.log(email + password)
+
+        await login ({
+            email,
+            password,
+        });
     }
 
     return (
