@@ -1,7 +1,11 @@
 export interface Advert {
-    id:number, 
-    title: string,
-    description: string
+    id:string, 
+    createdAt:string
+    name: string,
+    sale: boolean,
+    price: number, 
+    tags: Array<string>,
+    photo: string
 }
 
 export interface LoginData {

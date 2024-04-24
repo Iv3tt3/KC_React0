@@ -9,6 +9,6 @@ export const login = (data:LoginData) => {
   return client.post<TokenData, TokenData>('api/auth/login', data)
   .then(data => {
     setAuthorizationHeader(data.accessToken);
-    storage.set('auth', data.accessToken);
+    storage.set('key', data.accessToken);
   });
 };
