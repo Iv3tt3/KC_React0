@@ -1,0 +1,29 @@
+.advert-list {
+    list-style: none;
+    padding: 0;
+}
+
+.advert-container{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    
+}   
+
+.advert-name{
+    font-size: 30px;
+
+}
+.advert-sale {
+    color: grey;
+}
+.advert-price {
+    font-weight: bold;
+
+}
+.advert-tags {
+    color: grey;
+}
+
+.advert-img {
+    width: 100%;
+}

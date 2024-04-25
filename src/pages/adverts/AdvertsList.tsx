@@ -1,29 +1,40 @@
-import { useEffect, useState } from 'react';
-import { getAdverts } from './service';
-import { Advert } from '../../utils/interfaces';
+import Advert from './components/Advert';
+import './components/Advert.modules.css';
+
+const example = [{
+    "id": "9a7a5614-871e-4506-a332-61adcc19c4cf",
+    "createdAt": "2024-04-24T18:50:44.000Z",
+    "name": "Bike",
+    "sale": true,
+    "price": 200,
+    "tags": [
+        "lifestyle"
+    ],
+    "photo": "http://localhost:3001/public/1713984644031-437908861.jpeg"
+    },{
+    "id": "9a7a5614f",
+    "createdAt": "2024-04-24T18:50:44.000Z",
+    "name": "Bike",
+    "sale": true,
+    "price": 200,
+    "tags": [
+        "lifestyle"
+    ],
+    "photo": "http://localhost:3001/public/1713984644031-437908861.jpeg"
+    }]
+
 
 export function AdvertsList() {
-    const [adverts, setAdverts] = useState<Advert[]>([]);
 
-  useEffect(() => {
-    getAdverts()
-    .then(adverts => setAdverts(adverts));
-    }, []);
-
-  return (
-    <div title="Adverts in AdPop">
-        {adverts.length 
-        ? (
-          <ul>
-            {adverts.map(({ id, ...advert }) => (
-              <li key={id}>
-                  <p {...advert} />
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No adverts yet</p>
-        )}
-      </div>
-  );
+    return (
+        <div>
+            <ul className="advert-list">
+                {example.map(({...example }) => (
+                <li className="advert-container" key={example.id}>
+                    <Advert {...example}/>
+                </li>
+                ))}
+            </ul>
+        </div>
+    );
 }

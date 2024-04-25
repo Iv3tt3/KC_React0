@@ -1,14 +1,18 @@
-export interface Advert {
-    id:number, 
-    title: string,
-    description: string
+export interface IAdvert {
+    id:string, 
+    createdAt:string
+    name: string,
+    sale: boolean,
+    price: number, 
+    tags: Array<string>,
+    photo: string
 }
 
-export interface LoginData {
+export interface ILoginData {
     email: string;
     password: string;
 }
   
-export interface TokenData {
+export interface IToken {
     accessToken: string;
 }
