@@ -1,4 +1,4 @@
-export interface Advert {
+export interface IAdvert {
     id:string, 
     createdAt:string
     name: string,
@@ -8,11 +8,11 @@ export interface Advert {
     photo: string
 }
 
-export interface LoginData {
+export interface ILoginData {
     email: string;
     password: string;
 }
   
-export interface TokenData {
+export interface IToken {
     accessToken: string;
 }
