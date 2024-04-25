@@ -1,3 +1,4 @@
+import Button from "../../componentes/shared/Button";
 import { login } from "./service";
 
 export function LoginPage() {
@@ -25,6 +26,7 @@ export function LoginPage() {
             <input type="password" name="password"/>
             <button type="submit">Login</button>
         </form>
+        <Button>Test</Button>
     </div>
     )
 }
