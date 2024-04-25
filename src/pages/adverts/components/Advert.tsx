@@ -2,12 +2,12 @@ import { IAdvert } from "../../../utils/interfaces";
 
 export default function Advert ({id, name, sale, price, tags, photo }:IAdvert) {
     return (
-        <li key={id}>
-            <p>{name}</p>
-            <p>{sale}</p>
-            <p>{price}</p>
-            <p>{tags.toString()}</p>
-            <img src={photo}/>
-        </li>
+        <>
+        <p className="advert-name">{name}</p>
+        <p className="advert-sale">{sale}</p>
+        <p className="advert-price">{price}</p>
+        <p className="advert-tags">{tags.toString()}</p>
+        <img className="advert-img" src={photo}/>
+        </>
     );
 }

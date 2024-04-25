@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
-import { getAdverts } from './service';
-import { IAdvert } from '../../utils/interfaces';
 import Advert from './components/Advert';
+import './components/Advert.modules.css';
 
 const example = [{
     "id": "9a7a5614-871e-4506-a332-61adcc19c4cf",
@@ -30,9 +28,11 @@ export function AdvertsList() {
 
     return (
         <div>
-            <ul>
+            <ul className="advert-list">
                 {example.map(({...example }) => (
+                <li className="advert-container" key={example.id}>
                     <Advert {...example}/>
+                </li>
                 ))}
             </ul>
         </div>
