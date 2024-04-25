@@ -1,15 +1,9 @@
 import { client, setAuthorizationHeader } from '../../api/client';
+import { LoginData, TokenData } from '../../utils/interfaces';
 import storage from '../../utils/storage';
 
 
-interface LoginData {
-  email: string;
-  password: string;
-}
 
-interface TokenData {
-  accessToken: string;
-}
 
 export const login = (data:LoginData) => {
   return client.post<TokenData, TokenData>('api/auth/login', data)
