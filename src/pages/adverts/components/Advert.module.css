@@ -1,29 +1,29 @@
-.advert-list {
+.advertList {
     list-style: none;
     padding: 0;
 }
 
-.advert-container{
+.advertContainer{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     
 }   
 
-.advert-name{
+.advertName{
     font-size: 30px;
 
 }
-.advert-sale {
+.advertSale {
     color: grey;
 }
-.advert-price {
+.advertPrice {
     font-weight: bold;
 
 }
-.advert-tags {
+.advertTags {
     color: grey;
 }
 
-.advert-img {
+.advertImg {
     width: 100%;
 }
