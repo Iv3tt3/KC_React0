@@ -22,17 +22,17 @@ export function LoginPage({onLogged}: { onLogged: () => void }) {
     }
 
     const handleEmChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
+        setFormData(currentData => ({
             email: event.target.value, 
-            password:formData.password
-        })
+            password: currentData.password
+        }));
     }
 
     const handlePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData({
-            email: formData.email, 
+        setFormData(currentData => ({
+            email: currentData.email, 
             password:event.target.value
-        })
+        }));
     }
 
     return (
