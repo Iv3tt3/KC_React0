@@ -4,8 +4,6 @@ import styles from './components/Advert.module.css';
 import { getAdverts } from './service';
 import { useEffect, useState } from 'react';
 
-console.log(styles)
-
 export function AdvertsList() {
 
     const [adverts, setAdverts] = useState<IAdvert[]>([]);

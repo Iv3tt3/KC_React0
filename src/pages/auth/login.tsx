@@ -1,7 +1,7 @@
 import Button from "../../componentes/shared/Button";
 import { login } from "./service";
 
-export function LoginPage() {
+export function LoginPage({onLogged}: { onLogged: () => void }) {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -10,7 +10,7 @@ export function LoginPage() {
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        console.log(email + password)
+        onLogged()
 
         await login ({
             email,
@@ -24,9 +24,8 @@ export function LoginPage() {
         <form onSubmit={handleSubmit}>
             <input type="text" name="email"/>
             <input type="password" name="password"/>
-            <button type="submit">Login</button>
+            <Button type="submit">Log in</Button>
         </form>
-        <Button>Test</Button>
     </div>
     )
 }
