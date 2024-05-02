@@ -16,6 +16,8 @@ const Button = styled.button`
     &:active {
         transform: scale(0.90);
     }
+    opacity: ${props => (props.disabled ? 0.5 : 1)};
+    pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
 `;
 
 export default Button;
