@@ -21,17 +21,10 @@ export function LoginPage({onLogged}: { onLogged: () => void }) {
         });
     }
 
-    const handleEmChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(currentData => ({
-            email: event.target.value, 
-            password: currentData.password
-        }));
-    }
-
-    const handlePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData(currentData => ({
-            email: currentData.email, 
-            password:event.target.value
+            ...currentData,
+            [event.target.name]: event.target.value, 
         }));
     }
 
@@ -39,9 +32,9 @@ export function LoginPage({onLogged}: { onLogged: () => void }) {
     <div>
         <h1>Login to your account</h1>
         <form onSubmit={handleSubmit}>
-            <input type="text" name="email" value={email} onChange= {handleEmChange}
+            <input type="text" name="email" value={email} onChange= {handleChange}
             />
-            <input type="password" name="password" value={password} onChange= {handlePwChange}/>
+            <input type="password" name="password" value={password} onChange= {handleChange}/>
             <Button type="submit" disabled={!email || !password}>Log in</Button>
         </form>
     </div>
