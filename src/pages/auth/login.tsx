@@ -3,9 +3,13 @@ import Button from "../../componentes/shared/Button";
 import { login } from "./service";
 
 export function LoginPage({onLogged}: { onLogged: () => void }) {
- 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    })
+
+    const {email, password} = formData
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -18,11 +22,17 @@ export function LoginPage({onLogged}: { onLogged: () => void }) {
     }
 
     const handleEmChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value)
+        setFormData({
+            email: event.target.value, 
+            password:formData.password
+        })
     }
 
     const handlePwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value)
+        setFormData({
+            email: formData.email, 
+            password:event.target.value
+        })
     }
 
     return (
