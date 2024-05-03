@@ -5,7 +5,7 @@ export default function Header(){
     return (
         <header>
         <div>
-            <Logo></Logo>
+            <Logo width={300} ></Logo>
         </div>
         <nav></nav>
         </header>
