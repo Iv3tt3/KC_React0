@@ -1,9 +1,11 @@
-import React, {useState } from "react";
 import Button from "../../componentes/shared/Button";
 import { login } from "./service";
+import { useAuth } from "./context";
+import { useState } from "react";
 
-export function LoginPage(
-    {onLogged}: { onLogged: () => void }) {
+export function LoginPage() {
+
+    const {onLogin} = useAuth();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -16,7 +18,7 @@ export function LoginPage(
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onLogged()
+        onLogin()
         if (checked) {
         await login ({
             email,

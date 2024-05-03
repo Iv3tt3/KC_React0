@@ -1,12 +1,12 @@
-import Button from '../../componentes/shared/Button';
+import Layout from '../../componentes/layout/Layout';
 import { IAdvert } from '../../utils/interfaces';
-import { logout } from '../auth/service';
 import Advert from './components/Advert';
 import styles from './components/Advert.module.css';
 import { getAdverts } from './service';
 import { useEffect, useState } from 'react';
 
-export function AdvertsList({onLogout}: {onLogout: () => void}) {
+export function AdvertsList() {
+
 
     const [adverts, setAdverts] = useState<IAdvert[]>([]);
 
@@ -14,14 +14,8 @@ export function AdvertsList({onLogout}: {onLogout: () => void}) {
         getAdverts().then(ads => setAdverts(ads));
     },[])
 
-    const handleLogout = () => {
-        onLogout()
-        logout()
-    }
-
     return (
-        <div>
-            <Button onClick={handleLogout}>Logout</Button>
+        <Layout>
             <ul className={styles.advertsList}>
                 {adverts.map(({...advert}) => (
                     <li className={styles.advertContainer} key={advert.id}>
@@ -30,6 +24,6 @@ export function AdvertsList({onLogout}: {onLogout: () => void}) {
                     ))
                 }     
             </ul>
-        </div>
+        </Layout>
     );
 }
