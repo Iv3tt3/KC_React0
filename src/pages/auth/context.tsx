@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useContext, useState } from 'react';
+import { IAuthValue } from '../../utils/interfaces';
 
-const AuthContext = createContext();
+const AuthContext = createContext<IAuthValue | null>(null);
 
 export const AuthContextProvider = ({isDefaultLogged, children}: { isDefaultLogged: boolean , children: ReactNode}) => {
 
@@ -10,7 +11,7 @@ export const AuthContextProvider = ({isDefaultLogged, children}: { isDefaultLogg
 
     const handleIsLogout = () => setIsLogged(false)
 
-    const authValue = {
+    const authValue: IAuthValue = {
         isLogged, 
         onLogin: handleIsLogged, 
         onLogout: handleIsLogout,

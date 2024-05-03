@@ -16,3 +16,9 @@ export interface ILoginData {
 export interface IToken {
     accessToken: string;
 }
+
+export interface IAuthValue {
+    isLogged: boolean, 
+    onLogin: () => void,
+    onLogout:  () => void,
+}

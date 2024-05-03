@@ -2,10 +2,11 @@ import Button from "../../componentes/shared/Button";
 import { login } from "./service";
 import { useAuth } from "./context";
 import { useState } from "react";
+import Layout from "../../componentes/layout/Layout";
 
 export function LoginPage() {
 
-    const {onLogin} = useAuth();
+    const {onLogin} = useAuth() as { onLogin: () => void }
 
     const [formData, setFormData] = useState({
         email: '',
@@ -39,13 +40,15 @@ export function LoginPage() {
 
     return (
     <div>
-        <h1>Login to your account</h1>
-        <form onSubmit={handleSubmit}>
-            <input type="text" name="email" value={email} onChange= {handleChange}/>
-            <input type="password" name="password" value={password} onChange= {handleChange}/>
-            <input type="checkbox" checked={checked} onChange={handleCheck}/>
-            <Button type="submit" disabled={!email || !password}>Log in</Button>
-        </form>
+        <Layout>
+            <h1>Login to your account</h1>
+            <form onSubmit={handleSubmit}>
+                <input type="text" name="email" value={email} onChange= {handleChange}/>
+                <input type="password" name="password" value={password} onChange= {handleChange}/>
+                <input type="checkbox" checked={checked} onChange={handleCheck}/>
+                <Button type="submit" disabled={!email || !password}>Log in</Button>
+            </form>
+        </Layout>
     </div>
     )
 }

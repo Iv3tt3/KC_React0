@@ -4,7 +4,7 @@ import { useAuth } from "./pages/auth/context"
 
 function App() {
 
-  const {isLogged} = useAuth()
+  const {isLogged} = useAuth() as { isLogged: boolean };
   
   return (
     <> 
