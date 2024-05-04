@@ -22,3 +22,19 @@ export interface IAuthValue {
     onLogin: () => void,
     onLogout:  () => void,
 }
+
+export interface IFormProps {
+    className?: string, 
+    label?: string,
+    options?: Array<{
+        value: string, 
+        label: string}
+    >,
+    name?: string, 
+    type?: string, 
+    value?: string | number,
+    onChange?: {},
+    accept?: string,
+    step?:string, 
+
+}
