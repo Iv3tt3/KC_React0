@@ -24,10 +24,10 @@ export default function Header(){
                 ? <>
                     <Button onClick={handleLogout}>Logout</Button>
                     <>
-                        <NavLink to="/adverts/new">New ad</NavLink>
-                        <NavLink to="/adverts">All Ads</NavLink>
+                        <Button as={NavLink} to="/adverts/new">New Ad</Button>
+                        <Button as={NavLink} to="/adverts" end>All Ads</Button>
                     </>
-                </> : ""
+                </> : null
                 }
             </nav>
         </header>

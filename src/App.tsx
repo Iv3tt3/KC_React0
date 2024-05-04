@@ -4,12 +4,16 @@ import { LoginPage } from "./pages/auth/Login"
 import RequireAuth from "./pages/auth/RequireAuth";
 import { AdvertDetail } from "./pages/adverts/AdvertDetail";
 import { NewAdvert } from "./pages/adverts/NewAdvert";
+import { useAuth } from "./pages/auth/context";
 
 function App() {
+
+  const {isLogged} = useAuth() as {isLogged: boolean}
   
+
   return (
     <Routes>
-      <Route path='/login' element={<LoginPage />} />
+      <Route path='/login' element={(isLogged ?<Navigate to ="/"/>:<LoginPage />)} />
 
       <Route path='/adverts' element = {<RequireAuth><Outlet/></RequireAuth>}>
         <Route index element={<AdvertsList/>}/>

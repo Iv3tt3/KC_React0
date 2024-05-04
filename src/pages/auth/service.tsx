@@ -2,11 +2,12 @@ import { client, setAuthorizationHeader, removeAuthorizationHeader } from '../..
 import { ILoginData, IToken } from '../../utils/interfaces';
 import storage from '../../utils/storage';
 
-export const login = (data:ILoginData) => {
+export const login = (data:ILoginData, checked:boolean) => {
   return client.post<IToken, IToken>('api/auth/login', data)
   .then(data => {
     setAuthorizationHeader(data.accessToken);
-    storage.set('key', data.accessToken);
+    if (checked)
+      {storage.set('key', data.accessToken);}
   });
 };
 

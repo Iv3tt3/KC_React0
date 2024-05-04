@@ -3,8 +3,13 @@ import { login } from "./service";
 import { useAuth } from "./context";
 import { useState } from "react";
 import Layout from "../../componentes/layout/Layout";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function LoginPage() {
+
+    const location = useLocation()
+    console.log(location)
+    const navigate = useNavigate()
 
     const {onLogin} = useAuth() as { onLogin: () => void }
 
@@ -19,12 +24,14 @@ export function LoginPage() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onLogin()
-        if (checked) {
         await login ({
             email,
             password,
-        });}
+        }, checked);
+        onLogin()
+
+        navigate(location.state?.pathname || '/');
+
     }
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
