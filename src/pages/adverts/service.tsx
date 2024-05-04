@@ -8,3 +8,7 @@ export const getAdverts = (): Promise<Array<IAdvert>> => {
   return client.get(url);
 };
   
+export const getAdvert = (tweetId:string): Promise<IAdvert> => {
+  const url = `${advertsURL}/${tweetId}`;
+  return client.get(url);
+};

@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 export function LoginPage() {
 
     const location = useLocation()
-    console.log(location)
     const navigate = useNavigate()
 
     const {onLogin} = useAuth() as { onLogin: () => void }

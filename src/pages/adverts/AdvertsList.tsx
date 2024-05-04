@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Layout from '../../componentes/layout/Layout';
 import { IAdvert } from '../../utils/interfaces';
 import Advert from './components/Advert';
@@ -19,7 +20,9 @@ export function AdvertsList() {
             <ul className={styles.advertsList}>
                 {adverts.map(({...advert}) => (
                     <li className={styles.advertContainer} key={advert.id}>
-                        <Advert {...advert}/>
+                        <Link to={`/adverts/${advert.id}`}>
+                            <Advert {...advert}/>
+                        </Link>
                     </li>
                     ))
                 }     
