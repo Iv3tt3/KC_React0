@@ -2,6 +2,8 @@ import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { AdvertsList } from "./pages/adverts/AdvertsList"
 import { LoginPage } from "./pages/auth/Login"
 import RequireAuth from "./pages/auth/RequireAuth";
+import { AdvertDetail } from "./pages/adverts/AdvertDetail";
+import { NewAdvert } from "./pages/adverts/NewAdvert";
 
 function App() {
   
@@ -11,8 +13,8 @@ function App() {
 
       <Route path='/adverts' element = {<RequireAuth><Outlet/></RequireAuth>}>
         <Route index element={<AdvertsList/>}/>
-        <Route path=":id" element={<p>Advert Detail</p>}/>
-        <Route path="new" element={<p>New advert</p>}/>
+        <Route path=":id" element={<AdvertDetail/>}/>
+        <Route path="new" element={<NewAdvert/>}/>
       </Route>
 
       <Route path='/' element={<Navigate to ="/adverts"/>} />
