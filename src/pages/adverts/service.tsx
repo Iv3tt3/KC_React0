@@ -1,5 +1,5 @@
 import { client} from "../../api/client";
-import { IAdvert } from "../../utils/interfaces";
+import { IAdvert, IPostAdvert } from "../../utils/interfaces";
 
 const advertsURL = '/api/v1/adverts';
 
@@ -13,10 +13,15 @@ export const getAdvert = (tweetId:string): Promise<IAdvert> => {
   return client.get(url);
 };
 
-export const postAdvert = (data) => {
+export const postAdvert = (data:IPostAdvert): Promise<IAdvert> => {
   return client.post(`${advertsURL}`, data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   })
 };
+
+export const deleteAdvert = (tweetId:string): Promise<IAdvert> => {
+  const url = `${advertsURL}/${tweetId}`;
+  return client.delete(url);
+}
