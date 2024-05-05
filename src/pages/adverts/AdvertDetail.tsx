@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import Advert from "./components/Advert";
 import { IAdvert } from "../../utils/interfaces";
 import Button from "../../componentes/shared/Button";
-import styles from "./AdvertDetail.module.css"
 
 export function AdvertDetail() {
     const params = useParams().id as string;
