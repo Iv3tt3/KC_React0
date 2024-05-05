@@ -7,6 +7,7 @@ import { getAdverts } from './service';
 import { useEffect, useState } from 'react';
 import RadioButton from '../../componentes/shared/RadioButton';
 import NotificationMSG from '../../componentes/shared/Notification';
+import FormField from '../../componentes/shared/FormField';
 
 
 export function AdvertsList() {
@@ -14,55 +15,127 @@ export function AdvertsList() {
 
     const [adverts, setAdverts] = useState<IAdvert[]>([]);
 
-    const [adsFilter, setadsFilter] = useState<IAdvert[]>([]);
+    const [adsFilter, setAdsFilter] = useState<IAdvert[]>([]);
 
-    const handleFilter = (type) => {
-        const ads = adverts
-        if (type === "sell"){
-            setadsFilter(ads.filter(ad => ad.sale === true))
-        } else if (type === "buy"){
-            setadsFilter(ads.filter(ad => ad.sale === false))
-        } else {
-            setadsFilter(ads)
-        }
+    const [typeFilter, setTypeFilter] = useState("");
+
+    const [PricesFilter, setPricesFilter] = useState({
+        minprice: '',
+        maxprice: ''
+    });
+
+    const {minprice, maxprice} = PricesFilter
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { 
+        setPricesFilter(currentData => ({
+            ...currentData,
+            [event.target.name]: event.target.value, 
+        }));
     }
 
-    console.log(adsFilter)
+    const getFilterAdverts = () => {
+        const ads = [...adverts] 
+
+        let sale = (true || false)
+        if (typeFilter === "sell"){
+            sale = true
+        } else if (typeFilter === "buy"){
+            sale = false
+        }
+
+        setAdsFilter(ads.filter(ad => 
+            (ad.sale === sale 
+            && ad.price >= (minprice === "" ? ad.price : minprice) 
+            && ad.price <= (maxprice === "" ? ad.price : maxprice)
+            )
+        ))
+        setIsFilter(true)
+    };
+
+    const resetFilters = () => {
+        setPricesFilter({
+            ["maxprice"]: '',
+            ["minprice"]: '',
+        });
+        setTypeFilter('')
+        setAdsFilter(adverts)
+        setIsFilter(false)
+    }
+
+    const [isFilter, setIsFilter] = useState(false)
+      
     useEffect(() => {
         getAdverts().then(ads => {
             setAdverts(ads)
-            setadsFilter(ads)
+            setAdsFilter(ads)
         });
     },[])
 
     return (
         <Layout>
             <div className={styles.filterContainer}>
-            <RadioButton
-                    className="filerByType"
-                    title="Filter by type"
-                    name="sale"
-                    arrayInput={[
-                        {
-                            label:"All", 
-                            id:"all",
-                            value: `${adsFilter}`,
-                            onChange: () => handleFilter('all')
-                        },
-                        {
-                            label:"To Sell", 
-                            id:"sell",
-                            value: `${adsFilter}`,
-                            onChange: () => handleFilter('sell')
-                        },
-                        {
-                            label:"To Buy", 
-                            id:"buy",
-                            value: `${adsFilter}`,
-                            onChange: () => handleFilter('buy')
-                        }
-                    ]}
-            />
+                {!isFilter && <div>
+                    <div className={styles.typeFilterContainer}>
+                        <RadioButton
+                                className="filerByType"
+                                title="Filter by type"
+                                name="sale"
+                                arrayInput={[
+                                    {
+                                        label:"All", 
+                                        id:"all",
+                                        value: `${typeFilter}`,
+                                        onChange: () => setTypeFilter('all'),
+                                        checked: typeFilter === 'all'
+                                    },
+                                    {
+                                        label:"To Sell", 
+                                        id:"sell",
+                                        value: `${typeFilter}`,
+                                        onChange: () => setTypeFilter('sell'),
+                                        checked: typeFilter === 'sell'
+                                    },
+                                    {
+                                        label:"To Buy", 
+                                        id:"buy",
+                                        value: `${typeFilter}`,
+                                        onChange: () => setTypeFilter('buy'),
+                                        checked: typeFilter === 'buy'
+                                    }
+                                ]}
+                        />
+                    </div>
+                    <div className={styles.priceFilterContainer}>
+                        <FormField
+                            type="number"
+                            name="minprice"
+                            label="Min price"
+                            className="filterPrice"
+                            value={minprice}
+                            onChange={handleChange}
+                            step="0.01"
+                        />
+                        <FormField
+                            type="number"
+                            name="maxprice"
+                            label="Max price"
+                            className="filterPrice"
+                            value={maxprice}
+                            onChange={handleChange}
+                            step="0.01"
+                        />
+                    </div>
+                </div>}
+                {isFilter && <div>
+                    <h3>Filter by: </h3>
+                    <p>Type: {typeFilter === "" ? "No filter" : `To ${typeFilter} adverts`}</p> 
+                    <h3>Price:</h3>
+                        <p>Min price = {minprice === "" ? "No filter" : `${minprice} EUR`}</p>
+                        <p>Max price = {maxprice === "" ? "No filter" : `${maxprice} EUR`}</p>
+                </div>
+                }
+            <button className={styles.filterButton} disabled={isFilter || (minprice === "" && maxprice === "" && typeFilter === "")} onClick={getFilterAdverts}>Filter</button>
+            <button className={styles.filterButton}  disabled={!isFilter} onClick={resetFilters}>Reset</button>
             </div>
             <ul className={styles.advertsList}>
                 {adsFilter.length !== 0 

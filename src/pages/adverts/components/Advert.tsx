@@ -1,7 +1,7 @@
 import { IAdvert } from "../../../utils/interfaces";
 import styles from './Advert.module.css';
 
-export default function Advert ({id, name, sale, price, tags, photo }:IAdvert) {
+export default function Advert ({name, sale, price, tags, photo }:IAdvert) {
     return (
         <>
         <p className={styles.advertPrice}>{price} EUR</p>

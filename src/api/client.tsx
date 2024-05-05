@@ -1,4 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { ErrorResponse } from 'react-router-dom';
 
 const baseURL = import.meta.env.VITE_BASE_URL
 
@@ -11,14 +12,14 @@ client.interceptors.response.use(
   error => {
     if (error.response) {
       // 400/500 server error
-      return Promise.reject({
+      return Promise.reject<ErrorResponse>({
         statusText: error.response.statusText,
         ...error.response,
         ...error.response.data,
       });
     }
     // Request error
-    return Promise.reject({ message: error.message });
+    return Promise.reject<ErrorResponse>({ message: error.message });
   },
 );
 

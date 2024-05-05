@@ -53,7 +53,7 @@ export function NewAdvert() {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { 
         setFormData(currentData => ({
             ...currentData,
-            [event.target.name]: (event.target.name === 'sale' ? event.target.id === 'sell' : event.target.value), 
+            [event.target.name]: event.target.value, 
         }));
     }
 
