@@ -5,6 +5,7 @@ import FormField from "../../componentes/shared/FormField";
 import { postAdvert } from "./service";
 import { ErrorResponse, useNavigate } from "react-router-dom";
 import styles from "./Newadvert.module.css"
+import RadioButton from "../../componentes/shared/RadioButton";
 
 
 export function NewAdvert() {
@@ -23,7 +24,7 @@ export function NewAdvert() {
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-    const fileInputRef = useRef(null);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
 
     const [isFetching, setIsFetching] = useState(false)
 
@@ -56,6 +57,13 @@ export function NewAdvert() {
         }));
     }
 
+    const handleButton = (type) => {
+        setFormData(currentData => ({
+            ...currentData,
+            ["sale"]: (type === 'sell')
+        }));
+    }
+
     const handleCheckChange = (tag) => {
         if (selectedTags.includes(tag)){
             setSelectedTags (prevTags => prevTags.filter(prevTag => prevTag !== tag))
@@ -68,6 +76,7 @@ export function NewAdvert() {
         setError(null)
         setIsFetching(false)
     }
+    console.log(sale)
 
     return (
         <Layout>
@@ -95,24 +104,25 @@ export function NewAdvert() {
                     />
                 </div>
 
-                <div className={styles.radioContainer}>
-                    Select type:
-                    <div >
-                        <label> 
-                        To Sell
-                        <input type="radio" id="sell" name="sale" value={sale}
-                        onChange={handleChange} required></input>
-                        </label>
-                    </div>
-                    <div>
-                        <label> 
-                        To Buy
-                        <input type="radio" id="buy" name="sale" value={sale}
-                        onChange={handleChange}></input>
-                        </label>
-                    </div>
-                </div>
-                
+                <RadioButton
+                    className={styles.radioContainer}
+                    title="Select type"
+                    name="sale"
+                    arrayInput={[
+                        {
+                            label:"To Sell", 
+                            id:"sell",
+                            value: `${sale}`,
+                            onChange: () => handleButton('sell')
+                        },
+                        {
+                            label:"To Buy", 
+                            id:"buy",
+                            value: `${sale}`,
+                            onChange: () => handleButton('buy')
+                        }
+                    ]}
+                />
 
                 <div>
                     <p>Select your tags:</p>
