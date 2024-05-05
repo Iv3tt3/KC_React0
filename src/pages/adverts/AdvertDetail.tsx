@@ -38,7 +38,7 @@ export function AdvertDetail() {
     <Layout>
         {ad ? <Advert {...ad as IAdvert}></Advert> : null}
         {showConfirm &&(
-            < div className={styles.modalContainer}>
+            < div>
                 <p>Are you sure you want to delete the advert?</p>
                 <Button onClick={deleteAd}>YES! Delete the Ad</Button>
                 <Button onClick={()=>setShowCofirm(false)}>NO! Cancel</Button>
