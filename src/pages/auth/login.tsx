@@ -4,6 +4,7 @@ import { useAuth } from "./context";
 import { useState } from "react";
 import Layout from "../../componentes/layout/Layout";
 import { ErrorResponse, useLocation, useNavigate } from "react-router-dom";
+import styles from './Login.module.css'
 
 export function LoginPage() {
 
@@ -63,10 +64,10 @@ export function LoginPage() {
     <div>
         <Layout>
             <h1>Login to your account</h1>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="email" value={email} onChange= {handleChange}/>
-                <input type="password" name="password" value={password} onChange= {handleChange}/>
-                <input type="checkbox" checked={checked} onChange={handleCheck}/>
+            <form onSubmit={handleSubmit} className={styles.loginForm}>
+                <input className={styles.textInput} type="text" name="email" value={email} onChange= {handleChange}/>
+                <input className={styles.textInput} type="password" name="password" value={password} onChange= {handleChange}/>
+                <label>Stay Logged in<input className={styles.checkInput} type="checkbox" checked={checked} onChange={handleCheck}/></label>
                 <Button type="submit" disabled={!email || !password || isFetching}>Log in</Button>
             </form>
             <div onClick={resetError}>{error ? error.statusText : null}</div>
