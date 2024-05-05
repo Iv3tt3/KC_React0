@@ -2,39 +2,71 @@ import { useRef, useState } from "react";
 import Layout from "../../componentes/layout/Layout";
 import Button from "../../componentes/shared/Button";
 import FormField from "../../componentes/shared/FormField";
+import { postAdvert } from "./service";
+import { ErrorResponse, useNavigate } from "react-router-dom";
 
 
 export function NewAdvert() {
 
+    const navigate = useNavigate()
+
     const [formData, setFormData] = useState({
         name: '',
-        price: 0,
-        sale: '',
+        price: '',
+        sale: true
     })
 
     const {name, price, sale} = formData
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log([name, price, (sale === 'sell'),selectedTags, fileInputRef.current.files[0] ])
-
-    };
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFormData(currentData => ({
-            ...currentData,
-            [event.target.name]: event.target.value, 
-        }));
-    }
 
     const tags = ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'];
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-    const handleCheckChange = (tag) => {
-      setSelectedTags (prevTags => [...prevTags, tag])
+    const fileInputRef = useRef(null);
+
+    const [isFetching, setIsFetching] = useState(false)
+
+    const [error, setError] = useState<ErrorResponse | null>(null)
+
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        try {
+            setIsFetching(true)
+            await postAdvert({
+                name, 
+                price, 
+                sale, 
+                tags: selectedTags.join(), 
+                photo: fileInputRef.current.files[0]
+            });
+            setIsFetching(false)
+            navigate('/');
+        }catch(error){
+            setIsFetching(true)
+            setError(error as ErrorResponse)
+        }
     };
 
-    const fileInputRef = useRef(null);
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => { 
+        setFormData(currentData => ({
+            ...currentData,
+            [event.target.name]: (event.target.name === 'sale' ? event.target.id === 'sell' : event.target.value), 
+        }));
+    }
+
+    const handleCheckChange = (tag) => {
+        if (selectedTags.includes(tag)){
+            setSelectedTags (prevTags => prevTags.filter(prevTag => prevTag !== tag))
+        }else{
+            setSelectedTags (prevTags => [...prevTags, tag])
+        }
+    };
+
+    const resetError = () => {
+        setError(null)
+        setIsFetching(false)
+    }
 
     return (
         <Layout>
@@ -68,17 +100,22 @@ export function NewAdvert() {
                     ref={fileInputRef}
                 />
 
-                <label>
                     Select type:
-                    <select 
-                    name="sale"
-                    value={sale}
-                    onChange={handleChange}
-                    >
-                    <option value="sell">To Sell</option>
-                    <option value="buy">To Buy</option>
-                    </select>
-                </label>
+                    <div>
+                        <label> 
+                        To Sell
+                        <input type="radio" id="sell" name="sale" value={sale}
+                        onChange={handleChange} required></input>
+                        </label>
+                    </div>
+                    <div>
+                        <label> 
+                        To Buy
+                        <input type="radio" id="buy" name="sale" value={sale}
+                        onChange={handleChange}></input>
+                        </label>
+                    </div>
+                
                 
 
                 <div>
@@ -94,8 +131,9 @@ export function NewAdvert() {
                     ))}
                 </div>
 
-                <Button type="submit">Publish new ad</Button>
-          </form>
+                <Button type="submit" disabled={!name || !price || selectedTags.length === 0 || isFetching}>Publish new ad</Button>
+            </form>
+            <div onClick={resetError}>{error ? error.statusText : null}</div>
         </Layout>
     );
 }

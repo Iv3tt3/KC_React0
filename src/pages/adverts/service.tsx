@@ -12,3 +12,11 @@ export const getAdvert = (tweetId:string): Promise<IAdvert> => {
   const url = `${advertsURL}/${tweetId}`;
   return client.get(url);
 };
+
+export const postAdvert = (data) => {
+  return client.post(`${advertsURL}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+};
