@@ -4,6 +4,7 @@ import Button from "../../componentes/shared/Button";
 import FormField from "../../componentes/shared/FormField";
 import { postAdvert } from "./service";
 import { ErrorResponse, useNavigate } from "react-router-dom";
+import styles from "./Newadvert.module.css"
 
 
 export function NewAdvert() {
@@ -18,7 +19,7 @@ export function NewAdvert() {
 
     const {name, price, sale} = formData
 
-    const tags = ['Opción 1', 'Opción 2', 'Opción 3', 'Opción 4'];
+    const tags = ['lifestyle', 'mobile', 'motor', 'work'];
 
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
@@ -71,37 +72,32 @@ export function NewAdvert() {
     return (
         <Layout>
             <form onSubmit={handleSubmit}>
-                <FormField
-                    type="text"
-                    name="name"
-                    label="Ad name"
-                    className="newAdvert-name"
-                    value={name}
-                    onChange={handleChange}
+                
+                <div className={styles.formFieldContainer}>
+                    <FormField
+                        type="text"
+                        name="name"
+                        label="Ad name"
+                        className="newAdvert-name"
+                        value={name}
+                        onChange={handleChange}
 
-                />
+                    />
 
-                <FormField
-                    type="number"
-                    name="price"
-                    label="Ad price"
-                    className="newAdvert-price"
-                    value={price}
-                    onChange={handleChange}
-                    step="0.01"
-                />
+                    <FormField
+                        type="number"
+                        name="price"
+                        label="Ad price"
+                        className="newAdvert-price"
+                        value={price}
+                        onChange={handleChange}
+                        step="0.01"
+                    />
+                </div>
 
-                <FormField
-                    type="file"
-                    name="img"
-                    label=""
-                    className="newAdvert-photo"
-                    accept="image/png, image/jpeg"
-                    ref={fileInputRef}
-                />
-
+                <div className={styles.radioContainer}>
                     Select type:
-                    <div>
+                    <div >
                         <label> 
                         To Sell
                         <input type="radio" id="sell" name="sale" value={sale}
@@ -115,10 +111,12 @@ export function NewAdvert() {
                         onChange={handleChange}></input>
                         </label>
                     </div>
-                
+                </div>
                 
 
                 <div>
+                    <p>Select your tags:</p>
+                    <div className={styles.tagContainer}>
                     {tags.map((tag) => (
                         <label key={tag}>
                         <input
@@ -129,6 +127,18 @@ export function NewAdvert() {
                         {tag}
                         </label>
                     ))}
+                    </div>
+                </div>
+
+                <div className={styles.fileContainer}>
+                <FormField
+                    type="file"
+                    name="img"
+                    label=""
+                    className="newAdvert-photo"
+                    accept="image/png, image/jpeg"
+                    ref={fileInputRef}
+                />
                 </div>
 
                 <Button type="submit" disabled={!name || !price || selectedTags.length === 0 || isFetching}>Publish new ad</Button>
