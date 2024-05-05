@@ -1,29 +1,89 @@
-.advertList {
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
     list-style: none;
     padding: 0;
+    text-decoration: none;
+    color: initial;
+}
+
+.advertsList {
+    display: grid;
+    row-gap: 10px;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    justify-content: space-evenly;
 }
 
 .advertContainer{
+    margin: 10pt;
+    border: 1pt solid lightgray;
+    padding: 20pt;
+    border-radius: 10pt;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    
-}   
+    background-color: rgb(244, 244, 244);
+}
 
 .advertName{
-    font-size: 30px;
+    font-size: 20pt;
+    font-weight: bold;
+    border-bottom: 1pt solid;
+    margin-bottom: 5pt;
+    margin-top: 3pt;
 
-}
-.advertSale {
-    color: grey;
 }
 .advertPrice {
+    background-color: lightblue;
+    font-size: 16pt;
+    padding: 5pt;
+    border-radius: 10pt 0 ;
+    margin: 0pt;
+    text-align: right;
     font-weight: bold;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
 
 }
+
+.advertText {
+    display: flex;
+    justify-content: space-between;
+}
 .advertTags {
+    margin:0;
+    text-align: right;
+}
+
+.advertSale {
+    font-size: 12pt;
     color: grey;
+    text-align: right;
 }
 
 .advertImg {
     width: 100%;
+    border-radius: 0pt 10pt 10pt 10pt;
+}
+
+@media (min-width:400px) {
+    .advertImg{
+        width: 400px;
+    }
+    .advertContainer{
+        width: 400px;
+    }
+}
+
+
+@media (max-width:1450px) {
+    .advertsList{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width:950px) {
+    .advertsList{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

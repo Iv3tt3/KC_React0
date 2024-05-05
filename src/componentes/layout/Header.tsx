@@ -3,7 +3,7 @@ import Button from "../shared/Button";
 import { useAuth } from "../../pages/auth/context";
 import { logout } from "../../pages/auth/service";
 import { Link, NavLink } from "react-router-dom";
-
+import "./Header.module.css"
 
 export default function Header(){
 
